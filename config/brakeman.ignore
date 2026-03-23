@@ -1,0 +1,51 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "98592dcff3d3ac033fc9003aa51d5803870dda17746b44216455cc5ac9eb0166",
+      "check_name": "SendFile",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/api/files_controller.rb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file(File.expand_path(File.join(File.expand_path(ENV.fetch(\"ECOSYNC_BASE_PATH\", Dir.home)), sanitize_path(params[:path]))), :disposition => \"attachment\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::FilesController",
+        "method": "download"
+      },
+      "user_input": "params[:path]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Path sanitized with Pathname.cleanpath and validated with start_with? against base_path"
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "c391f61fe9ea502c98a7550e0650c9428cf3dfa0f4693416a3e3b6551d34f83d",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/api/files_controller.rb",
+      "line": 23,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "FileUtils.mkdir_p(File.dirname(File.expand_path(File.join(File.expand_path(ENV.fetch(\"ECOSYNC_BASE_PATH\", Dir.home)), sanitize_path(params[:path])))))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::FilesController",
+        "method": "upload"
+      },
+      "user_input": "params[:path]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": "Path sanitized with Pathname.cleanpath and validated with start_with? against base_path"
+    }
+  ],
+  "brakeman_version": "8.0.4"
+}
