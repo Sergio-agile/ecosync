@@ -1,8 +1,8 @@
 module Api
   class FilesController < ApplicationController
     def download
-      base_path = ENV.fetch("ECOSYNC_BASE_PATH", Dir.home)
-      file_path = File.join(base_path, params[:path])
+      base_path = File.expand_path(ENV.fetch("ECOSYNC_BASE_PATH", Dir.home))
+      file_path = File.expand_path(File.join(base_path, params[:path]))
 
       if File.exist?(file_path) && file_path.start_with?(base_path)
         send_file file_path, disposition: "attachment"
@@ -12,8 +12,8 @@ module Api
     end
 
     def upload
-      base_path = ENV.fetch("ECOSYNC_BASE_PATH", Dir.home)
-      dest_path = File.join(base_path, params[:path])
+      base_path = File.expand_path(ENV.fetch("ECOSYNC_BASE_PATH", Dir.home))
+      dest_path = File.expand_path(File.join(base_path, params[:path]))
 
       return render json: { error: "Invalid path" }, status: :forbidden unless dest_path.start_with?(base_path)
 
